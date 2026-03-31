@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>BattleMech Search</title>
+  <meta name="description" content="BattleMech Search">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <h1>BattleMech Search</h1>
+
+  <form id="filterForm">
+
+    <label>
+      Name:
+      <input type="text" name="nameSearch" placeholder="e.g. Atlas">
+    </label>
+
+    <label>
+      Class:
+      <input type="text" name="classSearch" placeholder="e.g. Atlas">
+    </label>
+
+    <label>
+      Size (min/max):
+      <input type="number" name="minSize" placeholder="Min">
+      <input type="number" name="maxSize" placeholder="Max">
+    </label>
+
+    <label>
+      Intro (min/max):
+      <input type="number" name="minIntro" placeholder="Min">
+      <input type="number" name="maxIntro" placeholder="Max">
+    </label>
+
+    <label>
+      PV (min/max):
+      <input type="number" name="minPV" placeholder="Min">
+      <input type="number" name="maxPV" placeholder="Max">
+    </label>
+
+    <label>
+      Sort by:
+      <select name="sortBy">
+        <option value="">--</option>
+        <option value="name">Name</option>
+        <option value="size">Size</option>
+        <option value="armor">Armor</option>
+        <option value="structure">Structure</option>
+        <option value="overheat">Overheat</option>
+        <option value="intro">Intro</option>
+        <option value="intro">PV</option>
+      </select>
+      <select name="sortDir">
+        <option value="asc">ASC</option>
+        <option value="desc">DESC</option>
+      </select>
+    </label>
+
+    <button type="submit">Search</button>
+  </form>
+
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Size</th>
+        <th>Armor</th>
+        <th>Structure</th>
+        <th>S</th>
+        <th>M</th>
+        <th>L</th>
+        <th>E</th>
+        <th>OV</th>
+        <th>Intro</th>
+        <th>PV</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById("filterForm");
+    const tbody = document.querySelector("#resultsTable tbody");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const filters = Object.fromEntries(formData.entries());
+
+      // Convert numeric inputs
+      ["minSize", "maxSize", "minIntro", "maxIntro"].forEach(k => {
+        if (filters[k]) filters[k] = Number(filters[k]);
+      });
+
+      try {
+        const res = await fetch("/search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(filters)
+        });
+
+        const data = await res.json();
+
+        // Clear old results
+        tbody.innerHTML = "";
+
+        // Populate table
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><a href="${row.mul}" target="_blank">${row.name}</a></td>
+            <td><a href="${row.sarna}" target="_blank">${row.class}</a></td>
+            <td>${row.size}</td>
+            <td>${row.armor}</td>
+            <td>${row.structure}</td>
+            <td class="damage">${row.damageS}</td>
+            <td class="damage">${row.damageM}</td>
+            <td class="damage">${row.damageL}</td>
+            <td class="damage">${row.damageE}</td>
+            <td class="overheat">${row.overheat}</td>
+            <td>${row.intro}</td>
+            <td>${row.pv}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
