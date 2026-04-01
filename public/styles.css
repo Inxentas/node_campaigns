@@ -15,9 +15,19 @@ body {
 .dropshadow {
     filter: drop-shadow(0px 5px 4px rgba(0,0,0,0.2));
 }
+.dropshadow-reverse {
+    filter: drop-shadow(0px -5px 4px rgba(0,0,0,0.2));
+}
+.gradient {
+    background: linear-gradient(45deg,rgb(255, 255, 255) 0%, rgb(224, 224, 224) 50%, rgb(255, 255, 255) 100%);
+}
 
 /* Search Form */
-label { display:block; margin-top:10px; }
+label { 
+    display:block; 
+    margin-top:10px;
+    font-size:0.8em;
+}
 input, select { 
     margin:0px; 
     padding:5px;
@@ -46,12 +56,26 @@ button[type='submit']:hover {
 }
 
 /* table */
-table { border-collapse: collapse; border:0px solid red;width: 100%; }
-table a {color:var(--color-main);}
-th { text-align:center; }
-th { background-color:var(--color-main); color:var(--color-bg);}
-tr:nth-child(2n){background-color:#f8f8f8;}
-th, td { border:0px; padding:5px; }
+table { 
+    border-collapse:collapse;
+    border:0px solid red;
+    width: 100%;
+}
+table a {
+    color:var(--color-main);
+}
+th { 
+    text-align:left;
+    background-color:var(--color-main); 
+    color:var(--color-bg);
+}
+tr:nth-child(2n) { 
+    background-color:#f8f8f8; 
+}
+th, td { 
+    border:0px; 
+    padding:5px 5px;
+}
 
 /* search app */
 .searchapp {
@@ -104,7 +128,6 @@ th, td { border:0px; padding:5px; }
     overflow-x: hidden;
     scrollbar-width:40px;
     scroll-padding:5px;
-    
 }
 .searchresults thead {
     position:sticky;
@@ -114,6 +137,7 @@ th, td { border:0px; padding:5px; }
     font-weight:300;
     letter-spacing:1px;
     background:var(--color-main);
+    height:30px;
 }
 .searchresults .number { text-align:center; }
 .searchresults .damage { background-color:var(--color-main);color:white; }
@@ -130,7 +154,7 @@ th, td { border:0px; padding:5px; }
     border-left:1px solid black;
 }
 .searchresults::-webkit-scrollbar-thumb {
-    background-color:black;
+    background-color:var(--color-bg);
     border-radius:0px;
 
     border-top:2px solid var(--color-main);
@@ -138,5 +162,20 @@ th, td { border:0px; padding:5px; }
     border-bottom:2px solid var(--color-main);
 }
 .searchresults::-webkit-scrollbar-thumb:hover {
-    background-color:var(--color-bg);
+    background-color:black;
+}
+
+/* footer */
+.footer {
+    position:relative;
+    float:left;
+    width:100%;
+    background-color:var(--color-main);
+    color:var(--color-bg);
+    text-align:center;
+}
+.footer a,
+.footer a:hover {
+    color:var(--color-bg);
+    text-decoration:none;
 }
