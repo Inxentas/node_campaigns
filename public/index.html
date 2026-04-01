@@ -62,10 +62,11 @@
               </select>
           </div>
 
-        </div>
+          <div class="column">
+            <label>&nbsp;</label>
+            <button type="submit">Search</button>
+          </div>
 
-        <div class="line">
-          <button type="submit">Search</button>
         </div>
         
       </form>
@@ -73,7 +74,7 @@
 
     <div class="searchresults">
       <table id="resultsTable">
-        <thead>
+        <thead class="dropshadow">
           <tr>
             <th>Name</th>
             <th>Class</th>
@@ -96,6 +97,8 @@
   </div>
 
   <script>
+    const searchform = document.querySelector('.searchform');
+    const searchresults = document.querySelector('.searchresults');
     const form = document.getElementById("filterForm");
     const tbody = document.querySelector("#resultsTable tbody");
 
@@ -150,8 +153,6 @@
     });
 
     /* Since we can't do sticky inpure CSS the way we want, we'll use some JS. */
-    const searchform = document.querySelector('.searchform');
-    const searchresults = document.querySelector('.searchresults');
     function updateTop() {
       const height =  window.innerHeight - searchform.offsetHeight;
       searchresults.style.height = (height + 'px');
