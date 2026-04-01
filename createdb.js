@@ -25,7 +25,7 @@ function recreateTable()
         class TEXT,
         sarna TEXT,
         variant TEXT,
-        pv TEXT,
+        pv INTEGER,
         size INTEGER,
         armor INTEGER,
         structure INTEGER,

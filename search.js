@@ -58,9 +58,10 @@ function searchFilterQuery(filters = {}) {
     sql += ` ORDER BY ${filters.sortBy} ${dir}`;
   }
 
-  console.log("SQL:", sql);
+  console.log("conditions:", conditions);
   console.log("Params:", params);
-
+  console.log("SQL:", sql);
+  
   return { sql, params };
 }
 

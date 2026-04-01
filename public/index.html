@@ -8,78 +8,92 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <h1>BattleMech Search</h1>
 
-  <form id="filterForm">
+  <div class="searchapp">
 
-    <label>
-      Name:
-      <input type="text" name="nameSearch" placeholder="e.g. Atlas">
-    </label>
+    <div class="searchform">
+      <h1>BattleMech Search</h1>
+      <form id="filterForm">
+        <div class="columns">
 
-    <label>
-      Class:
-      <input type="text" name="classSearch" placeholder="e.g. Atlas">
-    </label>
+          <div class="column">
+            <label>Name:</label>
+            <input type="text" name="nameSearch" placeholder="e.g. Atlas">
+          </div>
+          
+          <div class="column">
+            <label>Class:</label>
+            <input type="text" name="classSearch" placeholder="e.g. Atlas">
+          </div>
 
-    <label>
-      Size (min/max):
-      <input type="number" name="minSize" placeholder="Min">
-      <input type="number" name="maxSize" placeholder="Max">
-    </label>
+          <div class="column">
+            <label>Size (min/max):</label>
+            <input type="number" name="minSize" min="1" max="4" placeholder="Min">
+            <input type="number" name="maxSize" min="1" max="4" placeholder="Max">
+          </div>
 
-    <label>
-      Intro (min/max):
-      <input type="number" name="minIntro" placeholder="Min">
-      <input type="number" name="maxIntro" placeholder="Max">
-    </label>
+          <div class="column">
+            <label>Intro (min/max):</label>
+            <input type="number" name="minIntro" placeholder="Min">
+            <input type="number" name="maxIntro" placeholder="Max">
+          </div>
 
-    <label>
-      PV (min/max):
-      <input type="number" name="minPV" placeholder="Min">
-      <input type="number" name="maxPV" placeholder="Max">
-    </label>
+          <div class="column">
+            <label>PV (min/max):</label>
+            <input type="number" name="minPV" placeholder="Min">
+            <input type="number" name="maxPV" placeholder="Max">
+          </div>
 
-    <label>
-      Sort by:
-      <select name="sortBy">
-        <option value="">--</option>
-        <option value="name">Name</option>
-        <option value="size">Size</option>
-        <option value="armor">Armor</option>
-        <option value="structure">Structure</option>
-        <option value="overheat">Overheat</option>
-        <option value="intro">Intro</option>
-        <option value="intro">PV</option>
-      </select>
-      <select name="sortDir">
-        <option value="asc">ASC</option>
-        <option value="desc">DESC</option>
-      </select>
-    </label>
+          <div class="column">
+            <label>Sort by:</label>
+              <select name="sortBy">
+                <option value="">--</option>
+                <option value="name">Name</option>
+                <option value="size">Size</option>
+                <option value="armor">Armor</option>
+                <option value="structure">Structure</option>
+                <option value="overheat">Overheat</option>
+                <option value="intro">Intro</option>
+                <option value="pv">PV</option>
+              </select>
+              <select name="sortDir">
+                <option value="asc">ASC</option>
+                <option value="desc">DESC</option>
+              </select>
+          </div>
 
-    <button type="submit">Search</button>
-  </form>
+        </div>
 
-  <table id="resultsTable">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Class</th>
-        <th>Size</th>
-        <th>Armor</th>
-        <th>Structure</th>
-        <th>S</th>
-        <th>M</th>
-        <th>L</th>
-        <th>E</th>
-        <th>OV</th>
-        <th>Intro</th>
-        <th>PV</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+        <div class="line">
+          <button type="submit">Search</button>
+        </div>
+        
+      </form>
+    </div>
+
+    <div class="searchresults">
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Size</th>
+            <th>Armor</th>
+            <th>Structure</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>E</th>
+            <th>OV</th>
+            <th>Intro</th>
+            <th>PV</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
 
   <script>
     const form = document.getElementById("filterForm");
@@ -114,24 +128,36 @@
           tr.innerHTML = `
             <td><a href="${row.mul}" target="_blank">${row.name}</a></td>
             <td><a href="${row.sarna}" target="_blank">${row.class}</a></td>
-            <td>${row.size}</td>
-            <td>${row.armor}</td>
-            <td>${row.structure}</td>
-            <td class="damage">${row.damageS}</td>
-            <td class="damage">${row.damageM}</td>
-            <td class="damage">${row.damageL}</td>
-            <td class="damage">${row.damageE}</td>
-            <td class="overheat">${row.overheat}</td>
-            <td>${row.intro}</td>
-            <td>${row.pv}</td>
+            <td class="number">${row.size}</td>
+            <td class="number">${row.armor}</td>
+            <td class="number">${row.structure}</td>
+            <td class="number damage">${row.damageS}</td>
+            <td class="number damage">${row.damageM}</td>
+            <td class="number damage">${row.damageL}</td>
+            <td class="number damage">${row.damageE}</td>
+            <td class="number overheat">${row.overheat}</td>
+            <td class="number">${row.intro}</td>
+            <td class="number">${row.pv}</td>
           `;
           tbody.appendChild(tr);
         });
+
+        updateTop();
 
       } catch (err) {
         console.error(err);
       }
     });
+
+    /* Since we can't do sticky inpure CSS the way we want, we'll use some JS. */
+    const searchform = document.querySelector('.searchform');
+    const searchresults = document.querySelector('.searchresults');
+    function updateTop() {
+      const height =  window.innerHeight - searchform.offsetHeight;
+      searchresults.style.height = (height + 'px');
+    }
+    window.addEventListener('resize', updateTop);
+    updateTop();
   </script>
 </body>
 </html>
