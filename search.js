@@ -45,7 +45,7 @@ function searchFilterQuery(filters = {}) {
     params.push(filters.classSearch.trim());
   }
 
-  let sql = "SELECT * FROM battlemechs";
+  let sql = "SELECT * FROM units";
 
   if (conditions.length) {
     sql += " WHERE " + conditions.join(" AND ");
