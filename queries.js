@@ -33,6 +33,10 @@ const create_table_types = db.exec(`
     )`
 );
 
+/** We should use DISTINCT to make filters for the dropdowns! */
+let distinctTechnology = `SELECT DISTINCT technology FROM units;`;
+let distinctRole = `SELECT DISTINCT role FROM units;`;
+
 module.exports = {
   db,
   create_table_battlemechs,

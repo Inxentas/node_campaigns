@@ -45,6 +45,35 @@
             </div>
 
             <div class="column">
+              <label>Subtype:</label>
+              <select name="subtype">
+                <option value="">--</option>
+                <option value="BM">BattleMech</option>
+                <option value="BA">Battle Armor</option>
+                <option value="CV">Combat Vehicle</option>
+                <option value="PM">ProtoMech</option>
+              </select>
+            </div>
+
+            <div class="column">
+              <label>Role:</label>
+              <select name="role">
+                <option value="">--</option>
+                <option value="Striker">NOT IMPLEMENTED YET</option>
+              </select>
+            </div>
+
+            <div class="column">
+              <label>Technology:</label>
+              <select name="technology">
+                <option value="">--</option>
+                <option value="Inner Sphere">Inner Sphere</option>
+                <option value="Clan">Clan</option>
+                <option value="Mixed">Mixed</option>
+              </select>
+            </div>
+
+            <div class="column">
               <label>Sort by:</label>
                 <select name="sortBy">
                   <option value="">--</option>
@@ -138,7 +167,6 @@
           // Populate table
           data.forEach(row => {
             const tr = document.createElement("tr");
-            console.log(row.damageSMin, typeof row.damageSMin);
             tr.innerHTML = `
               <td><a href="${row.mul}" target="_blank">${row.name}</a></td>
               <td><a href="${row.sarna}" target="_blank">${row.class}</a></td>

@@ -86,7 +86,7 @@ th, td {
 .searchform {
     position:relative;
     float:left;
-    width:100%;
+    width:calc(100% - 20px);
     background-color:var(--color-bg);
     padding:5px 10px 10px 10px;
     z-index: 10;

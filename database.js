@@ -22,7 +22,6 @@ function convertExcelFormula(raw, index)
   const match = raw.match(/HYPERLINK\("([^"]+)",\s*"([^"]+)"\)/i);
   return match ? match[index] : null;
 }
-
 function recreateTable(tablename)
 {
     console.log(`Dropping '${tablename}' table`);

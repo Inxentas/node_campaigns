@@ -4,10 +4,15 @@
  */
 
 const searchFilterConfig = {
+  // string filters
+  subtype: { column: "subtype", op: "=" },
+  role: { column: "role", op: "=" },
+  technology: { column: "technology", op: "=" },
+  variant: { column: "variant", op: "=" },
   size: { column: "size", op: "=" },
+  // numerical filters
   minSize: { column: "size", op: ">=" },
   maxSize: { column: "size", op: "<=" },
-  variant: { column: "variant", op: "=" },
   minArmor: { column: "armor", op: ">=" },
   maxArmor: { column: "armor", op: "<=" },
   minStructure: { column: "structure", op: ">=" },
@@ -16,6 +21,7 @@ const searchFilterConfig = {
   maxIntro: { column: "intro", op: "<=" },
   minPV: { column: "pv", op: ">=" },
   maxPV: { column: "pv", op: "<=" },
+  
 };
 
 function searchFilterQuery(filters = {}) {
