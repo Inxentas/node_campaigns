@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<%- include('partials/head') %>
+<body>
+    <div>
+        <%- include('partials/header') %>
+
+        <div class="profile">
+          <h3><i class="fas fa-user"></i>Your Identity</h3>
+          <div id="identity"></div>
+        </div>
+        <div class="profile">
+            <h3><i class="fas fa-map"></i>Your campaigns</h3>
+        </div>
+        <div id="campaigns"></div>
+    </div>
+    <%- include('partials/footer') %>
+    <script>
+    fetch("/api/profile")
+    .then(res => res.json())
+    .then(data => {
+        const el = document.getElementById("identity");
+        console.log(el);
+        console.log(data);
+        if (data.loggedIn) {
+        el.innerHTML = `
+            <span class="display-name">${data.user.name}</span>
+            <span class="email">(${data.user.email})</p></span>
+        `;
+        } else {
+        el.innerHTML = `
+            <p>You are not logged in.</p>
+            <a href="/auth/google">Login</a>
+        `;
+        }
+    });
+    </script>
+</body>
