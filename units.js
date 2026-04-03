@@ -3,7 +3,7 @@ const { db, convertExcelFormula, recreateTable, insertData } = require("./databa
 
 async function main() {
     const tablename = "units";
-    recreateTable(tablename); // synchronous
+    recreateTable(tablename);
     const files = [
         "csv/bm.csv", 
         "csv/ba.csv", 
