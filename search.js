@@ -6,6 +6,7 @@
 const searchFilterConfig = {
   // string filters
   subtype: { column: "subtype", op: "=" },
+  type: { column: "type", op: "=" },
   role: { column: "role", op: "=" },
   technology: { column: "technology", op: "=" },
   variant: { column: "variant", op: "=" },
